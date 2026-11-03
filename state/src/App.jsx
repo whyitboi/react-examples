@@ -34,7 +34,6 @@ function App() {
         </button>
       ))}
       <Person></Person>
-      <h2 id="firstName"></h2>
     </div>
   );
 }
@@ -47,7 +46,7 @@ function CustomInput() {
       value={value}
       onChange={(e) => {
         setValue(e.target.value);
-        document.querySelector('#firstName').textContent = e.target.value;
+        //  document.querySelector('#' the id of the relevant h2).textContent = e.target.value;
       }}
     ></input>
   );
@@ -56,12 +55,13 @@ function CustomInput() {
 function Person() {
   const [person, setPerson] = useState({
     firstName: 'John',
-    lastname: 'Smith',
+    lastName: 'Smith',
     age: 23,
   });
 
   return (
     <>
+      <h2 id="firstName">{person.firstName}</h2>
       <label for="firstName">
         Firstname:
         <CustomInput
@@ -76,6 +76,7 @@ function Person() {
         </CustomInput>
       </label>
 
+      <h2 id="lastName">{person.lastName}</h2>
       <label for="lastName">
         Lastname:
         <CustomInput
