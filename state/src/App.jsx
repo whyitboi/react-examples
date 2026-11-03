@@ -33,7 +33,8 @@ function App() {
           {color}
         </button>
       ))}
-      <CustomInput></CustomInput>
+      <Person></Person>
+      <h2 id="firstName"></h2>
     </div>
   );
 }
@@ -44,8 +45,51 @@ function CustomInput() {
     <input
       type="text"
       value={value}
-      onChange={(e) => setValue(e.target.value)}
+      onChange={(e) => {
+        setValue(e.target.value);
+        document.querySelector('#firstName').textContent = e.target.value;
+      }}
     ></input>
+  );
+}
+
+function Person() {
+  const [person, setPerson] = useState({
+    firstName: 'John',
+    lastname: 'Smith',
+    age: 23,
+  });
+
+  return (
+    <>
+      <label for="firstName">
+        Firstname:
+        <CustomInput
+          id="firstName"
+          key="firstName"
+          onChange={(e) => {
+            const newPerson = { ...person, firstName: e.target.value };
+            setPerson(newPerson);
+          }}
+        >
+          {person.firstName}
+        </CustomInput>
+      </label>
+
+      <label for="lastName">
+        Lastname:
+        <CustomInput
+          id="lastName"
+          key="lastName"
+          onChange={(e) => {
+            const newPerson = { ...person, lasttName: e.target.value };
+            setPerson(newPerson);
+          }}
+        >
+          {person.lastName}
+        </CustomInput>
+      </label>
+    </>
   );
 }
 
