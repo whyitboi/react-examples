@@ -22,7 +22,8 @@ function App() {
         backgroundColor,
       }}
     >
-      <h1>Color Change Number: {backgroundChange}</h1>
+      <br />
+      <p>Color Change Number: {backgroundChange}</p>
       {COLORS.map((color) => (
         <button
           type="button"
@@ -38,16 +39,9 @@ function App() {
   );
 }
 function CustomInput(props) {
-  const [value, setValue] = useState('');
-
   return (
     <input type="text" value={props.value} onChange={props.onChange}></input>
   );
-
-  //  (e) => {
-  //       setValue(e.target.value);
-  //       //  document.querySelector('#' the id of the relevant h2).textContent = e.target.value;
-  //     }
 }
 
 function Person() {
@@ -56,12 +50,14 @@ function Person() {
     lastName: 'Smith',
     age: 23,
   });
+  const fullname = person.firstName + ' ' + person.lastName;
 
   return (
     <>
-      <h2 id="firstName">{person.firstName}</h2>
+      <br />
+      <h1 id="fullname">Fullname:{` ${fullname}`}</h1>
       <label htmlFor="firstName">
-        Firstname:
+        Firstname:{' '}
         <CustomInput
           id="firstName"
           key="firstName"
@@ -75,15 +71,14 @@ function Person() {
         </CustomInput>
       </label>
 
-      <h2 id="lastName">{person.lastName}</h2>
       <label htmlFor="lastName">
-        Lastname:
+        Lastname:{' '}
         <CustomInput
           id="lastName"
           key="lastName"
           value={person.lastName}
           onChange={(e) => {
-            const newPerson = { ...person, lasttName: e.target.value };
+            const newPerson = { ...person, lastName: e.target.value };
             setPerson(newPerson);
           }}
         ></CustomInput>
