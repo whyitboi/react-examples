@@ -33,7 +33,19 @@ function App() {
           {color}
         </button>
       ))}
+      <CustomInput></CustomInput>
     </div>
+  );
+}
+function CustomInput() {
+  const [value, setValue] = useState('');
+
+  return (
+    <input
+      type="text"
+      value={value}
+      onChange={(e) => setValue(e.target.value)}
+    ></input>
   );
 }
 
