@@ -37,19 +37,17 @@ function App() {
     </div>
   );
 }
-function CustomInput() {
+function CustomInput(props) {
   const [value, setValue] = useState('');
 
   return (
-    <input
-      type="text"
-      value={value}
-      onChange={(e) => {
-        setValue(e.target.value);
-        //  document.querySelector('#' the id of the relevant h2).textContent = e.target.value;
-      }}
-    ></input>
+    <input type="text" value={props.value} onChange={props.onChange}></input>
   );
+
+  //  (e) => {
+  //       setValue(e.target.value);
+  //       //  document.querySelector('#' the id of the relevant h2).textContent = e.target.value;
+  //     }
 }
 
 function Person() {
@@ -62,11 +60,12 @@ function Person() {
   return (
     <>
       <h2 id="firstName">{person.firstName}</h2>
-      <label for="firstName">
+      <label htmlFor="firstName">
         Firstname:
         <CustomInput
           id="firstName"
           key="firstName"
+          value={person.firstName}
           onChange={(e) => {
             const newPerson = { ...person, firstName: e.target.value };
             setPerson(newPerson);
@@ -77,18 +76,17 @@ function Person() {
       </label>
 
       <h2 id="lastName">{person.lastName}</h2>
-      <label for="lastName">
+      <label htmlFor="lastName">
         Lastname:
         <CustomInput
           id="lastName"
           key="lastName"
+          value={person.lastName}
           onChange={(e) => {
             const newPerson = { ...person, lasttName: e.target.value };
             setPerson(newPerson);
           }}
-        >
-          {person.lastName}
-        </CustomInput>
+        ></CustomInput>
       </label>
     </>
   );
