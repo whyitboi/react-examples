@@ -38,18 +38,18 @@ class ClassInput extends Component {
 
   handleEdit = (todoToEdit) => {
     this.setState({ editingTodo: todoToEdit, editVal: todoToEdit });
-    this.handleEditOnChange;
   };
-  handleEditOnChange(e) {
+  handleEditOnChange = (e) => {
     this.setState((state) => ({
       ...state,
       editVal: e.target.value,
     }));
-  }
+  };
   handleReSubmit = (e) => {
-    e.preventDefault();
     this.setState((state) => ({
-      todos: state.todos.concat(state.editVal),
+      todos: state.todos.map((todo) =>
+        todo === state.editingTodo ? state.editVal : todo,
+      ),
       editingTodo: null,
       editVal: '',
     }));
@@ -79,12 +79,9 @@ class ClassInput extends Component {
                 <>
                   <input
                     value={this.state.editVal}
-                    onChange={this.handleInputChange}
+                    onChange={this.handleEditOnChange}
                   />
-                  <button
-                    type="button"
-                    onClick={() => this.handleReSubmit(this)}
-                  >
+                  <button type="button" onClick={() => this.handleReSubmit}>
                     Resubmit
                   </button>
                 </>
