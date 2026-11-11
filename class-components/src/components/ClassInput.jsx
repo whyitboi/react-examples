@@ -18,6 +18,7 @@ class ClassInput extends Component {
     this.setState((state) => ({
       ...state,
       inputVal: e.target.value,
+      isEditing: false,
     }));
   };
 
@@ -32,6 +33,21 @@ class ClassInput extends Component {
     this.setState((state) => ({
       todos: state.todos.filter((todo) => todo !== todoToDel),
     }));
+  };
+  handleEdit = (todoToEdit) => {
+    this.setState((state) => ({
+      todos: state.todos.concat(state.inputVal),
+      inputVal: todoToEdit.inputVal,
+    }));
+    <form onSubmit={this.handleSubmit}>
+      <input
+        type="text"
+        name="task-entry"
+        value={todoToEdit.inputVal}
+        onChange={this.handleInputChange}
+      />
+      <button type="submit">Reubmit</button>
+    </form>;
   };
 
   render() {
@@ -55,6 +71,9 @@ class ClassInput extends Component {
           {this.state.todos.map((todo) => (
             <li key={todo}>
               {todo}{' '}
+              <button type="button" onClick={() => this.handleEdit(todo)}>
+                Edit
+              </button>
               {this.state.todos.length > 1 && (
                 <button type="button" onClick={() => this.handleDelete(todo)}>
                   Delete
@@ -63,7 +82,7 @@ class ClassInput extends Component {
             </li>
           ))}
         </ul>
-        <Count />
+        <Count count={this.state.todos.length} />
       </section>
     );
   }
