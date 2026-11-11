@@ -18,7 +18,8 @@ class ClassInput extends Component {
     this.setState((state) => ({
       ...state,
       inputVal: e.target.value,
-      isEditing: false,
+      editingTodo: null,
+      editVal:''
     }));
   };
 
@@ -35,7 +36,7 @@ class ClassInput extends Component {
     }));
   };
   handleEdit = (todoToEdit) => {
-    this.setState((state) => ({
+   this.setState((state) => ({
       todos: state.todos.concat(state.inputVal),
       inputVal: todoToEdit.inputVal,
     }));
@@ -70,10 +71,18 @@ class ClassInput extends Component {
         <ul>
           {this.state.todos.map((todo) => (
             <li key={todo}>
-              {todo}{' '}
+              {todo === this.state.editingTodo ? (
+                <>
+                <input value={this.state.editVal} onChange={this.handleInputChange} />
+                <button type='button' onClick={/* */} />
+                </>
+              ):(
+                {todo}{' '}
               <button type="button" onClick={() => this.handleEdit(todo)}>
                 Edit
               </button>
+              )}
+
               {this.state.todos.length > 1 && (
                 <button type="button" onClick={() => this.handleDelete(todo)}>
                   Delete
