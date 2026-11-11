@@ -45,7 +45,7 @@ class ClassInput extends Component {
       editVal: e.target.value,
     }));
   };
-  handleReSubmit = (e) => {
+  handleReSubmit = () => {
     this.setState((state) => ({
       todos: state.todos.map((todo) =>
         todo === state.editingTodo ? state.editVal : todo,
@@ -81,7 +81,7 @@ class ClassInput extends Component {
                     value={this.state.editVal}
                     onChange={this.handleEditOnChange}
                   />
-                  <button type="button" onClick={() => this.handleReSubmit}>
+                  <button type="button" onClick={() => this.handleReSubmit()}>
                     Resubmit
                   </button>
                 </>
