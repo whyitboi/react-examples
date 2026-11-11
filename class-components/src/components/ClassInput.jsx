@@ -27,8 +27,10 @@ class ClassInput extends Component {
       inputVal: '',
     }));
   };
-  handleDelete = (id) => {
-    this.setState((state) => state.todos.filter((todo) => todo.id !== id));
+  handleDelete = (todoToDel) => {
+    this.setState((state) => ({
+      todos: state.todos.filter((todo) => todo !== todoToDel),
+    }));
   };
 
   render() {
@@ -53,7 +55,7 @@ class ClassInput extends Component {
             <li key={todo}>
               {todo}{' '}
               {this.state.todos.length > 1 && (
-                <button type="button" onClick={this.handleDelete(this.id)}>
+                <button type="button" onClick={() => this.handleDelete(todo)}>
                   Delete
                 </button>
               )}
