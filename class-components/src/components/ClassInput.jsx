@@ -8,6 +8,8 @@ class ClassInput extends Component {
     this.state = {
       todos: ['Just some demo tasks', 'As an example'],
       inputVal: '',
+      editingTodo: null,
+      editVal: '',
     };
 
     // this.handleInputChange = this.handleInputChange.bind(this);
@@ -18,8 +20,6 @@ class ClassInput extends Component {
     this.setState((state) => ({
       ...state,
       inputVal: e.target.value,
-      editingTodo: null,
-      editVal:''
     }));
   };
 
@@ -35,20 +35,24 @@ class ClassInput extends Component {
       todos: state.todos.filter((todo) => todo !== todoToDel),
     }));
   };
+
   handleEdit = (todoToEdit) => {
-   this.setState((state) => ({
-      todos: state.todos.concat(state.inputVal),
-      inputVal: todoToEdit.inputVal,
+    this.setState({ editingTodo: todoToEdit, editVal: todoToEdit });
+    this.handleEditOnChange;
+  };
+  handleEditOnChange(e) {
+    this.setState((state) => ({
+      ...state,
+      editVal: e.target.value,
     }));
-    <form onSubmit={this.handleSubmit}>
-      <input
-        type="text"
-        name="task-entry"
-        value={todoToEdit.inputVal}
-        onChange={this.handleInputChange}
-      />
-      <button type="submit">Reubmit</button>
-    </form>;
+  }
+  handleReSubmit = (e) => {
+    e.preventDefault();
+    this.setState((state) => ({
+      todos: state.todos.concat(state.editVal),
+      editingTodo: null,
+      editVal: '',
+    }));
   };
 
   render() {
@@ -73,14 +77,24 @@ class ClassInput extends Component {
             <li key={todo}>
               {todo === this.state.editingTodo ? (
                 <>
-                <input value={this.state.editVal} onChange={this.handleInputChange} />
-                <button type='button' onClick={/* */} />
+                  <input
+                    value={this.state.editVal}
+                    onChange={this.handleInputChange}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => this.handleReSubmit(this)}
+                  >
+                    Resubmit
+                  </button>
                 </>
-              ):(
-                {todo}{' '}
-              <button type="button" onClick={() => this.handleEdit(todo)}>
-                Edit
-              </button>
+              ) : (
+                <>
+                  {todo}{' '}
+                  <button type="button" onClick={() => this.handleEdit(todo)}>
+                    Edit
+                  </button>
+                </>
               )}
 
               {this.state.todos.length > 1 && (
